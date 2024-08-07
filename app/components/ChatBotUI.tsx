@@ -1,26 +1,36 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { ChatBotMessage, MessageDashboard, UserMessage } from "./Dashboard";
+import { Loading } from "./Loading";
 
 type ChatBotRes = {
-    message: string,
-    user_type: string
-}
+  message: string;
+  user_type: string;
+};
 
 const ChatBotUI = () => {
   const [chatInput, setChatInput] = useState<string>("");
-  const [responses, setResponses] = useState<ChatBotRes[]>([{
-    message: "I am a customer support chat bot, and I am ready to help you out! Do you have any questions?",
-    user_type: "Bot"
-  }])
+  const [responses, setResponses] = useState<ChatBotRes[]>([
+    {
+      message:
+        "I am a customer support chat bot, and I am ready to help you out! Do you have any questions?",
+      user_type: "Bot",
+    },
+  ]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleChatSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setResponses([...responses, {
+    setResponses([
+      ...responses,
+      {
         message: chatInput,
-        user_type: "User"
-    }])
+        user_type: "User",
+      },
+    ]);
+
+    setIsLoading(true);
 
     try {
       const res = await fetch("/api/chat", {
@@ -35,17 +45,18 @@ const ChatBotUI = () => {
 
       if (res.ok) {
         const data: ChatBotRes = await res.json();
-        console.log(data)
+        console.log(data);
 
         setTimeout(() => {
-            setResponses((prev) => {
-                const oldData = prev
-                return [...oldData, data]
-            })
-        }, 3000)
-        
+          setResponses((prev) => {
+            const oldData = prev;
+            return [...oldData, data];
+          });
+          setIsLoading(false);
+        }, 3000);
+
         // Clear the prompt from the input box.
-        setChatInput("")
+        setChatInput("");
       }
     } catch {
       throw new Error("Failed to submit chat.");
@@ -53,8 +64,8 @@ const ChatBotUI = () => {
   };
 
   useEffect(() => {
-    console.log(responses)
-  }, [responses])
+    console.log(responses);
+  }, [responses]);
 
   return (
     <div className="flex flex-col item-center bg-slate-200 justify-center gap-5 text-left ml-36 mr-36 w-4/5 mt-20 mb-20 max-sm:ml-2 max-sm:mr-2 p-32 max-sm:p-12 rounded-2xl">
@@ -63,12 +74,19 @@ const ChatBotUI = () => {
       </h1>
       <MessageDashboard>
         <>
-            {responses.map((res, i) =>
-                <span key={i}>
-                    {res.user_type == "Bot" && <ChatBotMessage message={res.message} />}
-                    {res.user_type == "User" && <UserMessage message={res.message} /> }
-                </span>
-            )}
+          {responses.map((res, i) => (
+            <span key={i}>
+              {res.user_type == "Bot" && (
+                <ChatBotMessage message={res.message} isLoading={false} />
+              )}
+              {res.user_type == "User" && <UserMessage message={res.message} />}
+            </span>
+          ))}
+          {isLoading && (
+            <div className="flex justify-start">
+              <Loading isLoading={isLoading} />
+            </div>
+          )}
         </>
       </MessageDashboard>
       <form
