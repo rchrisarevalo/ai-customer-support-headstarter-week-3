@@ -1,12 +1,26 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChatBotMessage, MessageDashboard, UserMessage } from "./Dashboard";
+
+type ChatBotRes = {
+    message: string,
+    user_type: string
+}
 
 const ChatBotUI = () => {
   const [chatInput, setChatInput] = useState<string>("");
+  const [responses, setResponses] = useState<ChatBotRes[]>([{
+    message: "I am a customer support chat bot, and I am ready to help you out! Do you have any questions?",
+    user_type: "Bot"
+  }])
 
   const handleChatSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setResponses([...responses, {
+        message: chatInput,
+        user_type: "User"
+    }])
 
     try {
       const res = await fetch("/api/chat", {
@@ -20,29 +34,42 @@ const ChatBotUI = () => {
       });
 
       if (res.ok) {
-        const data = await res.json();
+        const data: ChatBotRes = await res.json();
+        console.log(data)
+
+        setTimeout(() => {
+            setResponses((prev) => {
+                const oldData = prev
+                return [...oldData, data]
+            })
+        }, 3000)
         
         // Clear the prompt from the input box.
         setChatInput("")
-
-        console.log(data);
       }
     } catch {
       throw new Error("Failed to submit chat.");
     }
   };
 
+  useEffect(() => {
+    console.log(responses)
+  }, [responses])
+
   return (
-    <div className="flex flex-col item-center bg-slate-200 justify-center gap-5 text-left ml-36 mr-36 w-4/5 mt-20 mb-20 max-sm:ml-4 max-sm:mr-4 p-32 max-sm:p-12 rounded-2xl">
+    <div className="flex flex-col item-center bg-slate-200 justify-center gap-5 text-left ml-36 mr-36 w-4/5 mt-20 mb-20 max-sm:ml-2 max-sm:mr-2 p-32 max-sm:p-12 rounded-2xl">
       <h1 className="font-extrabold text-3xl max-sm:text-2xl">
         Customer Support Chatbot
       </h1>
       <MessageDashboard>
-        <ChatBotMessage message="I am a dumb bot. What else do you expect from me?" />
-        <UserMessage message="Not much. You are a dumb bot after all." />
-        <ChatBotMessage message="Wow, that was insulting." />
-        <UserMessage message="Well, it's not entirely surprising." />
-        <ChatBotMessage message="Tell me, how can I do better in providing more intelligent responses than the ones I am providing?" />
+        <>
+            {responses.map((res, i) =>
+                <span key={i}>
+                    {res.user_type == "Bot" && <ChatBotMessage message={res.message} />}
+                    {res.user_type == "User" && <UserMessage message={res.message} /> }
+                </span>
+            )}
+        </>
       </MessageDashboard>
       <form
         onSubmit={handleChatSubmission}
