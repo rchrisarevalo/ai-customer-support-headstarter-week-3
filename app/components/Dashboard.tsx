@@ -21,15 +21,21 @@ export const ChatBotMessage: React.FC<MessageDisplayProps & { isLoading: boolean
           className="w-16 h-16 rounded-full pointer-events-none"
         />
       </div>
-      <div className="p-5 w-3/5 max-sm:w-3/4 bg-slate-300 text-black rounded-md">
-        <p className="mr-10 max-sm:mr-0">
-          {message.split("\n").map((par, i) => (
-            <span key={`par-${i}`} className="flex flex-col gap-4">
-              {par}
-            </span>
-          ))}
-        </p>
-      </div>
+      {isLoading ? (
+        <div className="flex items-center">
+          <Loading isLoading={isLoading} />
+        </div>
+      ) : (
+        <div className="p-5 w-3/5 max-sm:w-3/4 bg-slate-300 text-black rounded-md">
+          <p className="mr-10 max-sm:mr-0">
+            {message.split("\n").map((par, i) => (
+              <span key={`par-${i}`} className="flex flex-col gap-4">
+                {par}
+              </span>
+            ))}
+          </p>
+        </div>
+      )}
     </div>
   );
 };
