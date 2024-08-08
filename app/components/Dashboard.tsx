@@ -21,7 +21,7 @@ export const ChatBotMessage: React.FC<
         <Image
           src={chatbot_img}
           alt="chatbot-ai-generated"
-          className="w-16 h-16 rounded-full"
+          className="w-16 h-16 rounded-full pointer-events-none"
         />
       </div>
       {isLoading ? (
@@ -40,6 +40,13 @@ export const ChatBotMessage: React.FC<
 export const UserMessage: React.FC<MessageDisplayProps> = ({ message }) => {
   return (
     <div className="flex flex-row justify-end items-end max-sm:flex-col gap-5 text-left">
+      <div className="sm:hidden flex items-center">
+        <Image
+          src={user_img}
+          alt="user-ai-generated"
+          className="w-16 h-16 rounded-full pointer-events-none"
+        />
+      </div>
       <div className="p-5 w-3/5 max-sm:w-3/4 bg-slate-300 text-black rounded-md">
         <p className="mr-10 max-sm:mr-0">{message}</p>
       </div>
@@ -47,7 +54,7 @@ export const UserMessage: React.FC<MessageDisplayProps> = ({ message }) => {
         <Image
           src={user_img}
           alt="user-ai-generated"
-          className="w-16 h-16 rounded-full"
+          className="w-16 h-16 rounded-full pointer-events-none"
         />
       </div>
     </div>
@@ -56,7 +63,7 @@ export const UserMessage: React.FC<MessageDisplayProps> = ({ message }) => {
 
 export const MessageDashboard: React.FC<DashboardProps> = ({ children }) => {
   return (
-    <div className="flex flex-col p-10 gap-5 max-lg:ml-10 max-lg:mr-10 max-sm:ml-0 max-sm:mr-0 rounded-md max-sm:w-full bg-white text-black">
+    <div className="flex flex-col p-10 max-sm:p-5 gap-5 max-lg:ml-10 max-lg:mr-10 max-sm:ml-0 max-sm:mr-0 max-sm:py-5 rounded-md max-sm:w-full bg-white text-black">
       {children}
     </div>
   );
