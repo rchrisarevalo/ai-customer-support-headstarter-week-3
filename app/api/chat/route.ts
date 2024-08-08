@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import groq from "@/setup";
 
 type ChatData = {
-  chat_prompt: string
-}
+  chat_prompt: string;
+};
 
 // Template included from Bill's video.
 const POST = async (req: NextRequest) => {
@@ -15,21 +15,21 @@ const POST = async (req: NextRequest) => {
     // Get the chat completion response.
     const chatCompletion = await groq.chat.completions.create({
       messages: [
-        { role: 'system', content: process.env.GROQ_PROMPT },
-        { role: 'user', content: data.chat_prompt }
+        { role: "system", content: process.env.GROQ_PROMPT },
+        { role: "user", content: data.chat_prompt },
       ],
-      model: 'llama3-8b-8192'
-    })
+      model: "llama3-8b-8192",
+    });
 
     return NextResponse.json({
       message: chatCompletion.choices[0].message.content,
-      user_type: "Bot"
-    })
+      user_type: "Bot",
+    });
   } else {
     return NextResponse.json({
       message: "There was an error",
-      user_type: "Bot"
-    })
+      user_type: "Bot",
+    });
   }
 };
 
