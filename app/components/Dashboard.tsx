@@ -1,5 +1,4 @@
 import React from "react";
-import { Loading } from "./Loading";
 
 interface MessageDisplayProps {
   message: string;
@@ -9,20 +8,12 @@ interface DashboardProps {
   children: React.ReactNode;
 }
 
-export const ChatBotMessage: React.FC<
-  MessageDisplayProps & { isLoading: boolean }
-> = ({ message, isLoading }) => {
+export const ChatBotMessage: React.FC<MessageDisplayProps> = ({ message }) => {
   return (
     <div className="flex flex-col items-left text-left">
-      {isLoading ? (
-        <div className="flex items-center">
-          <Loading isLoading={isLoading} />
-        </div>
-      ) : (
-        <div className="p-5 w-3/5 max-sm:w-3/4 bg-blue-500 text-white rounded-md">
-          <p className="mr-10 max-sm:mr-0">{message}</p>
-        </div>
-      )}
+      <div className="p-5 w-3/5 max-sm:w-3/4 bg-blue-500 text-white rounded-md">
+        <p className="mr-10 max-sm:mr-0">{message}</p>
+      </div>
     </div>
   );
 };
