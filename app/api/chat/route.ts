@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import groq from "@/setup";
+import Groq from "groq-sdk";
+import { prompts } from "@/current_messages";
 
 type ChatData = {
   chat_prompt: string;
@@ -8,6 +9,13 @@ type ChatData = {
 // Template included from Bill's video.
 const POST = async (req: NextRequest) => {
   const data: ChatData = await req.json();
+
+  // Set up Groq API.
+  const groq = new Groq({
+    apiKey: process.env.API_KEY
+  })
+
+  prompts.push({ role: 'user', content: data.chat_prompt })
 
   // Check if the prompt provided from the environment variable
   // is not null.
