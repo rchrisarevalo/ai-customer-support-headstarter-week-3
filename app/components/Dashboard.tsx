@@ -12,9 +12,7 @@ interface DashboardProps {
   children: React.ReactNode;
 }
 
-export const ChatBotMessage: React.FC<
-  MessageDisplayProps & { isLoading: boolean }
-> = ({ message, isLoading }) => {
+export const ChatBotMessage: React.FC<MessageDisplayProps & { isLoading: boolean }> = ({ message, isLoading }) => {
   return (
     <div className="flex flex-col gap-5 items-start text-left">
       <div className="flex items-center">
@@ -24,7 +22,7 @@ export const ChatBotMessage: React.FC<
           className="w-16 h-16 rounded-full pointer-events-none"
         />
       </div>
-      {isLoading ? (
+      {Loading ? (
         <div className="flex items-center">
           <Loading isLoading={isLoading} />
         </div>

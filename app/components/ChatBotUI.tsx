@@ -9,6 +9,7 @@ type ChatBotRes = {
 };
 
 const ChatBotUI = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [chatInput, setChatInput] = useState<string>("");
   const [responses, setResponses] = useState<ChatBotRes[]>([
     {
@@ -17,7 +18,6 @@ const ChatBotUI = () => {
       user_type: "Bot",
     },
   ]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleChatSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
