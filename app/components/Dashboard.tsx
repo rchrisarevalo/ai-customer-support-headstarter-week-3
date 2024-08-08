@@ -22,7 +22,7 @@ export const ChatBotMessage: React.FC<MessageDisplayProps & { isLoading: boolean
           className="w-16 h-16 rounded-full pointer-events-none"
         />
       </div>
-      {Loading ? (
+      {isLoading ? (
         <div className="flex items-center">
           <Loading isLoading={isLoading} />
         </div>
