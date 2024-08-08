@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ChatBotMessage, MessageDashboard, UserMessage } from "./Dashboard";
 import { Loading } from "./Loading";
 
@@ -18,6 +18,16 @@ const ChatBotUI = () => {
       user_type: "Bot",
     },
   ]);
+
+  const messageEndRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToBottom = () => {
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [responses]); // Scroll when responses change
 
   const handleChatSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -68,23 +78,29 @@ const ChatBotUI = () => {
       <h1 className="font-extrabold text-3xl max-sm:text-2xl">
         Customer Support Chatbot
       </h1>
-      <MessageDashboard>
-        <>
-          {responses.map((res, i) => (
-            <span key={i}>
-              {res.user_type == "Bot" && (
-                <ChatBotMessage message={res.message} />
-              )}
-              {res.user_type == "User" && <UserMessage message={res.message} />}
-            </span>
-          ))}
-          {isLoading && (
-            <div className="flex justify-start">
-              <Loading isLoading={isLoading} />
-            </div>
-          )}
-        </>
-      </MessageDashboard>
+      <div className="overflow-hidden h-full">
+        <MessageDashboard>
+          <>
+            {responses.map((res, i) => (
+              <span key={i}>
+                {res.user_type == "Bot" && (
+                  <ChatBotMessage message={res.message} />
+                )}
+                {res.user_type == "User" && (
+                  <UserMessage message={res.message} />
+                )}
+              </span>
+            ))}
+            <div ref={messageEndRef} />{" "}
+            {/* Reference for message dashboard scrolling */}
+            {isLoading && (
+              <div className="flex justify-start">
+                <Loading isLoading={isLoading} />
+              </div>
+            )}
+          </>
+        </MessageDashboard>
+      </div>
       <form
         onSubmit={handleChatSubmission}
         className="flex flex-row max-sm:flex-col items-center justify-center gap-10 text-left rounded-md"
