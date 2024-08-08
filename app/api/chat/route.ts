@@ -15,7 +15,7 @@ const POST = async (req: NextRequest) => {
     // Get the chat completion response.
     const chatCompletion = await groq.chat.completions.create({
       messages: [
-        { role: "assistant", content: process.env.GROQ_PROMPT },
+        { role: "system", content: process.env.GROQ_PROMPT },
         { role: "user", content: data.chat_prompt },
       ],
       model: "llama3-8b-8192",
