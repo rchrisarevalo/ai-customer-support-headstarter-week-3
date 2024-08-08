@@ -30,7 +30,11 @@ export const ChatBotMessage: React.FC<
         </div>
       ) : (
         <div className="p-5 w-3/5 max-sm:w-3/4 bg-blue-500 text-white rounded-md">
-          <p className="mr-10 max-sm:mr-0">{message}</p>
+          <p className="mr-10 max-sm:mr-0">
+            {message.split("\n").map((par, i) => (
+              <span key={`par-${i}`} className="flex flex-col gap-4">{par}</span>
+            ))}
+          </p>
         </div>
       )}
     </div>
@@ -48,7 +52,11 @@ export const UserMessage: React.FC<MessageDisplayProps> = ({ message }) => {
         />
       </div>
       <div className="p-5 w-3/5 max-sm:w-3/4 bg-slate-300 text-black rounded-md">
-        <p className="mr-10 max-sm:mr-0">{message}</p>
+        <p className="mr-10 max-sm:mr-0">
+          {message.split("\n").map((par, i) => (
+            <span key={`par-${i}`} className="flex flex-col gap-4">{par}</span>
+          ))}
+        </p>
       </div>
       <div className="max-sm:hidden flex items-center">
         <Image
