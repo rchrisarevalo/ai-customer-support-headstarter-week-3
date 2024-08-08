@@ -11,7 +11,7 @@ interface DashboardProps {
   children: React.ReactNode;
 }
 
-export const ChatBotMessage: React.FC<MessageDisplayProps> = ({ message }) => {
+export const ChatBotMessage: React.FC<MessageDisplayProps & { isLoading: boolean }> = ({ message, isLoading }) => {
   return (
     <div className="flex flex-col gap-5 items-start text-left">
       <div className="flex items-center">

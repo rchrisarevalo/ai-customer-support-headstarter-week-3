@@ -9,7 +9,6 @@ type ChatBotRes = {
 };
 
 const ChatBotUI = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [chatInput, setChatInput] = useState<string>("");
   const [responses, setResponses] = useState<ChatBotRes[]>([
     {
@@ -18,6 +17,7 @@ const ChatBotUI = () => {
       user_type: "Bot",
     },
   ]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const messageEndRef = useRef<HTMLDivElement | null>(null);
 
@@ -32,6 +32,12 @@ const ChatBotUI = () => {
   const handleChatSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const dashboard = document.getElementById("chatbot-dashboard")
+
+    if (dashboard) {
+      dashboard.scrollTo(0, dashboard.scrollHeight)
+    }
+
     setResponses([
       ...responses,
       {
@@ -41,6 +47,9 @@ const ChatBotUI = () => {
     ]);
 
     setIsLoading(true);
+
+    // Clear the prompt from the input box.
+    setChatInput("");
 
     try {
       const res = await fetch("/api/chat", {
@@ -84,7 +93,7 @@ const ChatBotUI = () => {
             {responses.map((res, i) => (
               <span key={i}>
                 {res.user_type == "Bot" && (
-                  <ChatBotMessage message={res.message} />
+                  <ChatBotMessage message={res.message} isLoading={false} />
                 )}
                 {res.user_type == "User" && (
                   <UserMessage message={res.message} />
