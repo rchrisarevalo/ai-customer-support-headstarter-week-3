@@ -1,4 +1,7 @@
 import React from 'react';
+import Image from 'next/image';
+import chatbot_img from '../images/bot-ai-generated-img.jpg';
+import user_img from '../images/user-ai-generated-img.jpg';
 
 interface MessageDisplayProps {
     message: string
@@ -10,7 +13,10 @@ interface DashboardProps {
 
 export const ChatBotMessage: React.FC<MessageDisplayProps> = ({ message }) => {
     return (
-        <div className="flex flex-col items-left text-left">
+        <div className="flex flex-row max-sm:flex-col gap-5 items-left text-left">
+            <div className="flex items-center">
+                <Image src={chatbot_img} alt="chatbot-ai-generated" className="w-16 h-16 rounded-full" />
+            </div>
             <div className="p-5 w-3/5 max-sm:w-3/4 bg-blue-500 text-white rounded-md">
                 <p className="mr-10 max-sm:mr-0">{ message }</p>
             </div>
@@ -20,9 +26,12 @@ export const ChatBotMessage: React.FC<MessageDisplayProps> = ({ message }) => {
 
 export const UserMessage: React.FC<MessageDisplayProps> = ({ message }) => {
     return (
-        <div className="flex flex-col items-end text-left">
+        <div className="flex flex-row justify-end items-end max-sm:flex-col gap-5 text-left">
             <div className="p-5 w-3/5 max-sm:w-3/4 bg-slate-300 text-black rounded-md">
                 <p className="mr-10 max-sm:mr-0">{ message }</p>
+            </div>
+            <div className="flex items-center">
+                <Image src={user_img} alt="chatbot-ai-generated" className="w-16 h-16 rounded-full" />
             </div>
         </div>
     )
