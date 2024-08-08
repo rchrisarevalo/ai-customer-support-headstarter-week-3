@@ -73,7 +73,7 @@ const ChatBotUI = () => {
           {responses.map((res, i) => (
             <span key={i}>
               {res.user_type == "Bot" && (
-                <ChatBotMessage message={res.message} />
+                <ChatBotMessage message={res.message} isLoading={false} />
               )}
               {res.user_type == "User" && <UserMessage message={res.message} />}
             </span>
