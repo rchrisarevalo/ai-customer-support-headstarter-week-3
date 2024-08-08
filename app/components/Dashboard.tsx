@@ -43,7 +43,7 @@ export const ChatBotMessage: React.FC<
 
 export const UserMessage: React.FC<MessageDisplayProps> = ({ message }) => {
   return (
-    <div className="flex flex-row justify-end items-end max-sm:flex-col gap-5 text-left">
+    <div className="flex flex-row justify-end items-center max-sm:flex-col gap-5 text-left">
       <div className="sm:hidden flex items-center">
         <Image
           src={user_img}
@@ -58,7 +58,7 @@ export const UserMessage: React.FC<MessageDisplayProps> = ({ message }) => {
           ))}
         </p>
       </div>
-      <div className="max-sm:hidden flex items-center">
+      <div className="max-sm:hidden flex flex-row items-center">
         <Image
           src={user_img}
           alt="user-ai-generated"
