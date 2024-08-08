@@ -64,7 +64,7 @@ const ChatBotUI = () => {
   };
 
   return (
-    <div className="flex flex-col item-center bg-slate-200 justify-center gap-5 text-left ml-36 mr-36 max-lg:w-4/5 max-sm:w-full min-lg:mt-20 min-lg:mb-20 max-sm:ml-2 max-sm:mr-2 p-32 max-sm:p-12 rounded-2xl">
+    <div className="flex flex-col item-center bg-slate-200 justify-center gap-5 text-left ml-36 mr-36 max-lg:w-4/5 max-sm:w-full mt-20 mb-20 max-sm:ml-2 max-sm:mr-2 p-32 max-sm:p-12 rounded-2xl">
       <h1 className="font-extrabold text-3xl max-sm:text-2xl">
         Customer Support Chatbot
       </h1>
