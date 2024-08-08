@@ -66,7 +66,7 @@ export const UserMessage: React.FC<MessageDisplayProps> = ({ message }) => {
 
 export const MessageDashboard: React.FC<DashboardProps> = ({ children }) => {
   return (
-    <div className="flex flex-col min-w-full h-96 overflow-y-scroll p-10 max-sm:p-5 gap-5 max-lg:ml-10 max-lg:mr-10 max-sm:ml-0 max-sm:mr-0 max-sm:py-5 rounded-md max-sm:w-full bg-white text-black">
+    <div id="chatbot-dashboard" className="flex flex-col min-w-full h-96 overflow-y-scroll p-10 max-sm:p-5 gap-5 max-lg:ml-10 max-lg:mr-10 max-sm:ml-0 max-sm:mr-0 max-sm:py-5 rounded-md max-sm:w-full bg-white text-black">
       {children}
     </div>
   );
