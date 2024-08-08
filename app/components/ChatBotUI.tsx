@@ -22,6 +22,12 @@ const ChatBotUI = () => {
   const handleChatSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const dashboard = document.getElementById("chatbot-dashboard")
+
+    if (dashboard) {
+      dashboard.scrollTo(0, dashboard.scrollHeight)
+    }
+
     setResponses([
       ...responses,
       {
@@ -31,6 +37,9 @@ const ChatBotUI = () => {
     ]);
 
     setIsLoading(true);
+
+    // Clear the prompt from the input box.
+    setChatInput("");
 
     try {
       const res = await fetch("/api/chat", {

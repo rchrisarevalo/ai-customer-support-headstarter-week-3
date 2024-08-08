@@ -32,7 +32,9 @@ export const ChatBotMessage: React.FC<
         <div className="p-5 w-3/5 max-sm:w-3/4 bg-slate-300 text-black rounded-md">
           <p className="mr-10 max-sm:mr-0">
             {message.split("\n").map((par, i) => (
-              <span key={`par-${i}`} className="flex flex-col gap-4">{par}</span>
+              <span key={`par-${i}`} className="flex flex-col gap-4">
+                {par}
+              </span>
             ))}
           </p>
         </div>
@@ -54,7 +56,9 @@ export const UserMessage: React.FC<MessageDisplayProps> = ({ message }) => {
       <div className="p-5 w-3/5 max-sm:w-3/4 bg-blue-500 text-white rounded-md">
         <p className="mr-10 max-sm:mr-0">
           {message.split("\n").map((par, i) => (
-            <span key={`par-${i}`} className="flex flex-col gap-4">{par}</span>
+            <span key={`par-${i}`} className="flex flex-col gap-4">
+              {par}
+            </span>
           ))}
         </p>
       </div>
@@ -64,7 +68,7 @@ export const UserMessage: React.FC<MessageDisplayProps> = ({ message }) => {
 
 export const MessageDashboard: React.FC<DashboardProps> = ({ children }) => {
   return (
-    <div className="flex flex-col min-w-full h-96 overflow-y-scroll p-10 max-sm:p-5 gap-5 max-lg:ml-10 max-lg:mr-10 max-sm:ml-0 max-sm:mr-0 max-sm:py-5 rounded-md max-sm:w-full bg-white text-black">
+    <div id="chatbot-dashboard" className="flex flex-col min-w-full h-96 overflow-y-scroll p-10 max-sm:p-5 gap-5 max-lg:ml-10 max-lg:mr-10 max-sm:ml-0 max-sm:mr-0 max-sm:py-5 rounded-md max-sm:w-full bg-white text-black">
       {children}
     </div>
   );
