@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import chatbot_img from "../images/bot-ai-generated-img.jpg";
 import user_img from "../images/user-ai-generated-img.jpg";
+import { Loading } from "./Loading";
 
 interface MessageDisplayProps {
   message: string;
