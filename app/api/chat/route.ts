@@ -1,42 +1,43 @@
 import { NextRequest, NextResponse } from "next/server";
 import Groq from "groq-sdk";
-import { prompts } from "@/current_messages";
 
 type ChatData = {
-  chat_prompt: string;
+  responses: Groq.Chat.Completions.ChatCompletionMessageParam[]
 };
+
+// Set up Groq API.
+const groq = new Groq({
+  apiKey: process.env.API_KEY
+})
 
 // Template included from Bill's video.
 const POST = async (req: NextRequest) => {
-  const data: ChatData = await req.json();
+  const data: Groq.Chat.Completions.ChatCompletionMessageParam[] = await req.json();
 
-  // Set up Groq API.
-  const groq = new Groq({
-    apiKey: process.env.API_KEY
-  })
+  try {
+    // Check if the prompt provided from the environment variable
+    // is not null.
+    if (process.env.GROQ_PROMPT) {
+      // Get the chat completion response.
+      const chatCompletion = await groq.chat.completions.create({
+        messages: data,
+        model: "llama3-8b-8192",
+      });
 
-  prompts.push({ role: 'user', content: data.chat_prompt })
-
-  // Check if the prompt provided from the environment variable
-  // is not null.
-  if (process.env.GROQ_PROMPT) {
-    // Get the chat completion response.
-    const chatCompletion = await groq.chat.completions.create({
-      messages: [
-        { role: "system", content: process.env.GROQ_PROMPT },
-        { role: "user", content: data.chat_prompt },
-      ],
-      model: "llama3-8b-8192",
-    });
-
+      return NextResponse.json({
+        content: chatCompletion.choices[0].message.content,
+        role: "assistant",
+      });
+    } else {
+      return NextResponse.json({
+        content: "There was an error",
+        role: "assistant",
+      });
+    }
+  } catch (error: any) {
     return NextResponse.json({
-      message: chatCompletion.choices[0].message.content,
-      user_type: "Bot",
-    });
-  } else {
-    return NextResponse.json({
-      message: "There was an error",
-      user_type: "Bot",
+      content: "There was an error",
+      role: "assistant",
     });
   }
 };

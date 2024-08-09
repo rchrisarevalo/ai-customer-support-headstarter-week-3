@@ -2,19 +2,29 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ChatBotMessage, MessageDashboard, UserMessage } from "./Dashboard";
 import { Loading } from "./Loading";
+import Groq from "groq-sdk";
 
 type ChatBotRes = {
-  message: string;
-  user_type: string;
+  role: string;
+  content: string;
 };
+
+// Function that checks whether
+// the AI prompt is undefined.
+const systemPrompt = () => {
+  if (process.env.GROQ_PROMPT) {
+      return process.env.GROQ_PROMPT
+  } else {
+      return "undefined"
+  }
+}
 
 const ChatBotUI = () => {
   const [chatInput, setChatInput] = useState<string>("");
-  const [responses, setResponses] = useState<ChatBotRes[]>([
+  const [responses, setResponses] = useState<Groq.Chat.Completions.ChatCompletionMessageParam[]>([
     {
-      message:
-        "I am a customer support chat bot, and I am ready to help you out! Do you have any questions?",
-      user_type: "Bot",
+      role: "assistant",
+      content: systemPrompt(),
     },
   ]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -26,56 +36,58 @@ const ChatBotUI = () => {
   };
 
   useEffect(() => {
+    console.log("Responses changed!")
     scrollToBottom();
-  }, [responses]); // Scroll when responses change
+  }, [responses, isLoading]); // Scroll when responses change or when loading status changes.
 
   const handleChatSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const dashboard = document.getElementById("chatbot-dashboard")
+    // Push response from user to array instead of setting it.
+    // It helps boost its chances of making it to the server.
+    responses.push({role: 'user', content: chatInput})
 
-    if (dashboard) {
-      dashboard.scrollTo(0, dashboard.scrollHeight)
-    }
-
-    setResponses([
-      ...responses,
-      {
-        message: chatInput,
-        user_type: "User",
-      },
-    ]);
-
+    // Set the loading status to true to display
+    // the loading animation while the chatbot
+    // is thinking of a response.
     setIsLoading(true);
 
     // Clear the prompt from the input box.
     setChatInput("");
 
     try {
+      console.log(responses)
       const res = await fetch("/api/chat", {
         method: "POST",
-        body: JSON.stringify({
-          chat_prompt: chatInput,
-        }),
+        body: JSON.stringify(responses),
         headers: {
           "Content-Type": "application/json",
         },
       });
 
       if (res.ok) {
-        const data: ChatBotRes = await res.json();
-        console.log(data);
-
+        const data = await res.json();
+        
         setTimeout(() => {
-          setResponses((prev) => {
-            const oldData = prev;
-            return [...oldData, data];
-          });
+          // Push the response from the chatbot
+          // into the responses array.
+          responses.push(data)
+
+          // Set the loading state to false
+          // to no longer display loading
+          // animation.
           setIsLoading(false);
-        }, 3000);
+        }, 3000)
 
         // Clear the prompt from the input box.
-        setChatInput("");
+        setChatInput("")
+      } else {
+        const data = await res.json()
+
+        setTimeout(() => {
+          responses.push(data)
+          setIsLoading(false);
+        }, 3000)
       }
     } catch {
       throw new Error("Failed to submit chat.");
@@ -92,11 +104,11 @@ const ChatBotUI = () => {
           <>
             {responses.map((res, i) => (
               <span key={i}>
-                {res.user_type == "Bot" && (
-                  <ChatBotMessage message={res.message} isLoading={false} />
+                {res.role == "assistant" && (
+                  <ChatBotMessage message={res?.content} isLoading={false} />
                 )}
-                {res.user_type == "User" && (
-                  <UserMessage message={res.message} />
+                {res.role == "user" && (
+                  <UserMessage message={res?.content} />
                 )}
               </span>
             ))}
