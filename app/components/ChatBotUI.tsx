@@ -23,9 +23,13 @@ const ChatBotUI = () => {
   const [chatInput, setChatInput] = useState<string>("");
   const [responses, setResponses] = useState<Groq.Chat.Completions.ChatCompletionMessageParam[]>([
     {
-      role: "assistant",
+      role: "system",
       content: systemPrompt(),
     },
+    {
+      role: "assistant",
+      content: "I will be your helpful customer support chatbot. How can I help you?"
+    }
   ]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
