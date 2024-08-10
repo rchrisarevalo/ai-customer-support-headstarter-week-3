@@ -23,12 +23,12 @@ interface DashboardProps {
 
 export const ChatBotMessage: React.FC<ChatBotMessageDisplayProps & { isLoading: boolean }> = ({ message, isLoading }) => {
   return (
-    <div className="flex flex-col gap-5 items-start text-left">
+    <div className="flex flex-row gap-5 items-center text-left">
       <div className="flex items-center">
         <Image
           src={chatbot_img}
           alt="chatbot-ai-generated"
-          className="w-16 h-16 rounded-full pointer-events-none"
+          className="w-12 h-12 rounded-full pointer-events-none"
         />
       </div>
       {isLoading ? (
@@ -36,8 +36,8 @@ export const ChatBotMessage: React.FC<ChatBotMessageDisplayProps & { isLoading: 
           <Loading isLoading={isLoading} />
         </div>
       ) : (
-        <div className="p-5 w-3/5 max-sm:w-3/4 bg-slate-300 text-black rounded-md">
-          <p className="mr-10 max-sm:mr-0">
+        <div className="p-3 w-fit max-w-3/5 max-sm:w-3/4 bg-slate-300 text-black rounded-md">
+          <p className=" max-sm:mr-0">
             {message?.split("\n").map((par, i) => (
               <span key={`par-${i}`} className="flex flex-col gap-4">
                 {par}
@@ -52,22 +52,23 @@ export const ChatBotMessage: React.FC<ChatBotMessageDisplayProps & { isLoading: 
 
 export const UserMessage: React.FC<UserMessageDisplayProps> = ({ message }) => {
   return (
-    <div className="flex flex-col items-end max-sm:items-end gap-5 text-left">
-      <div className="flex flex-row items-center">
-        <Image
-          src={user_img}
-          alt="user-ai-generated"
-          className="w-16 h-16 rounded-full pointer-events-none"
-        />
-      </div>
-      <div className="p-5 w-3/5 max-sm:w-3/4 bg-blue-500 text-white rounded-md">
-        <p className="mr-10 max-sm:mr-0">
+    <div className="flex flex-row justify-end items-end max-sm:items-end gap-5 text-left">
+      
+      <div className="p-3 max-w-3/5 w-fit max-sm:w-3/4 bg-blue-500 text-white rounded-md">
+        <p className=" max-sm:mr-0">
           {message?.toString().split("\n").map((par, i) => (
             <span key={`par-${i}`} className="flex flex-col gap-4">
               {par}
             </span>
           ))}
         </p>
+      </div>
+      <div className="flex flex-row items-center">
+        <Image
+          src={user_img}
+          alt="user-ai-generated"
+          className="w-12 h-12 rounded-full pointer-events-none"
+        />
       </div>
     </div>
   );

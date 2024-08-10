@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ChatBotMessage, MessageDashboard, UserMessage } from "./Dashboard";
 import { Loading } from "./Loading";
 import Groq from "groq-sdk";
+import { IoIosSend } from "react-icons/io";
 
 type ChatBotRes = {
   role: string;
@@ -13,9 +14,9 @@ type ChatBotRes = {
 // the AI prompt is undefined.
 const systemPrompt = () => {
   if (process.env.GROQ_PROMPT) {
-      return process.env.GROQ_PROMPT
+    return process.env.GROQ_PROMPT
   } else {
-      return "undefined"
+    return "undefined"
   }
 }
 
@@ -49,7 +50,7 @@ const ChatBotUI = () => {
 
     // Push response from user to array instead of setting it.
     // It helps boost its chances of making it to the server.
-    responses.push({role: 'user', content: chatInput})
+    responses.push({ role: 'user', content: chatInput })
 
     // Set the loading status to true to display
     // the loading animation while the chatbot
@@ -71,7 +72,7 @@ const ChatBotUI = () => {
 
       if (res.ok) {
         const data = await res.json();
-        
+
         setTimeout(() => {
           // Push the response from the chatbot
           // into the responses array.
@@ -98,10 +99,17 @@ const ChatBotUI = () => {
     }
   };
 
+  const handleKeyDown = (e: any) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault(); // Prevent default newline behavior
+      handleChatSubmission(e); // Call the submit handler
+    }
+  };
+
   return (
-    <div className="flex flex-col item-center bg-slate-200 justify-center gap-5 text-left ml-36 mr-36 max-lg:w-4/5 max-sm:w-full mt-20 mb-20 max-sm:ml-2 max-sm:mr-2 p-32 max-sm:p-12 rounded-2xl">
-      <h1 className="font-extrabold text-3xl max-sm:text-2xl">
-        Customer Support Chatbot
+    <div className="flex flex-col item-center bg-slate-200 justify-center gap-5 text-left lg:w-4/5 sm:w-full max-sm:ml-2 max-sm:mr-2 p-16 max-sm:p-12 rounded-2xl">
+      <h1 className="font-mono font-extrabold text-3xl max-sm:text-2xl">
+        WanderAI
       </h1>
       <div className="overflow-hidden h-full">
         <MessageDashboard>
@@ -131,18 +139,20 @@ const ChatBotUI = () => {
         className="flex flex-row max-sm:flex-col items-center justify-center gap-10 text-left rounded-md"
       >
         <textarea
-          className="border-transparent pb-4 bg-white outline-transparent p-4 items-center rounded-md resize-none w-full"
+          className="border-transparent pb-4 bg-white outline-transparent outline-none p-4 items-center rounded-md resize-none w-full"
           onChange={(e) => setChatInput(e.target.value)}
+          onKeyDown={handleKeyDown}
           value={chatInput}
           rows={1}
           required
+          placeholder="Message Chatbot"
         ></textarea>
         <div className="flex flex-col justify-center items-center">
           <button
             type="submit"
-            className="p-8 py-3 rounded-md bg-slate-500 text-white font-extrabold"
+            className={`p-6 py-3 text-3xl rounded-md ${chatInput == "" ? "bg-slate-100 hover:cursor-default" : "bg-slate-500 hover:bg-slate-400"} text-white font-extrabold`}
           >
-            Send
+            <IoIosSend />
           </button>
         </div>
       </form>
