@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ChatBotMessage, MessageDashboard, UserMessage } from "./Dashboard";
 import { Loading } from "./Loading";
 import Groq from "groq-sdk";
+import { IoIosSend } from "react-icons/io";
 
 type ChatBotRes = {
   role: string;
@@ -13,9 +14,9 @@ type ChatBotRes = {
 // the AI prompt is undefined.
 const systemPrompt = () => {
   if (process.env.GROQ_PROMPT) {
-      return process.env.GROQ_PROMPT
+    return process.env.GROQ_PROMPT
   } else {
-      return "undefined"
+    return "undefined"
   }
 }
 
@@ -49,7 +50,7 @@ const ChatBotUI = () => {
 
     // Push response from user to array instead of setting it.
     // It helps boost its chances of making it to the server.
-    responses.push({role: 'user', content: chatInput})
+    responses.push({ role: 'user', content: chatInput })
 
     // Set the loading status to true to display
     // the loading animation while the chatbot
@@ -71,7 +72,7 @@ const ChatBotUI = () => {
 
       if (res.ok) {
         const data = await res.json();
-        
+
         setTimeout(() => {
           // Push the response from the chatbot
           // into the responses array.
@@ -95,6 +96,13 @@ const ChatBotUI = () => {
       }
     } catch {
       throw new Error("Failed to submit chat.");
+    }
+  };
+
+  const handleKeyDown = (e: any) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault(); // Prevent default newline behavior
+      handleChatSubmission(e); // Call the submit handler
     }
   };
 
@@ -123,27 +131,28 @@ const ChatBotUI = () => {
           </>
         </MessageDashboard>
         <div className="w-full p-2 mt-5 bg-gray-100 rounded-md">
-        <form
-          onSubmit={handleChatSubmission}
-          className="flex flex-row max-sm:flex-col items-center justify-center text-left rounded-md w-full"
-        >
-          <textarea
-            className="border-transparent outline-transparent bg-white p-4 rounded-md resize-none w-full"
-            onChange={(e) => setChatInput(e.target.value)}
-            value={chatInput}
-            rows={1}
-            required
-          />
+          <form
+            onSubmit={handleChatSubmission}
+            className="flex flex-row max-sm:flex-col items-center justify-center text-left rounded-md w-full"
+          >
+            <textarea
+              className="border-transparent outline-transparent bg-white p-4 rounded-md resize-none w-full"
+              onChange={(e) => setChatInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              value={chatInput}
+              rows={1}
+              required
+              placeholder="Message Chatbot"
+            />
             <button
-              type="submit"
-              className="p-4 rounded-md bg-blue-500 text-white font-extrabold"
+            type="submit"
+            className={`p-6 py-3 text-3xl rounded-md ${chatInput == "" ? "bg-slate-100 hover:cursor-default" : "bg-slate-500 hover:bg-slate-400"} text-white font-extrabold`}
             >
-              Send
+              <IoIosSend />
             </button>
-        </form>
+          </form>
+        </div>
       </div>
-      </div>
-      
     </div>
   );
 };

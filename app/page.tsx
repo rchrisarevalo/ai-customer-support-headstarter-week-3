@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen bg-white text-black">
       <div className="flex flex-col items-center justify-center">
-      <h1 className="font-extrabold text-2xl max-sm:text-2xl text-center pt-8">
+      <h1 className="font-mono font-extrabold text-2xl max-sm:text-2xl text-center pt-8">
           Hello! 
           <br/>
           My name is WanderAI
@@ -21,8 +21,8 @@ export default function Home() {
       />
       </div>
       <div className="flex-col items-center justify-center w-4/5 min-h-screen bg-slate-300">
-        <h1 className="font-extrabold text-3xl max-sm:text-2xl text-center pt-8">
-          Chat Log
+        <h1 className="font-mono font-bold text-3xl max-sm:text-2xl text-center pt-8">
+          Ask me anything...
         </h1>
         <ChatBotUI />
       </div>
