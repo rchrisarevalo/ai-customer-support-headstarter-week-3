@@ -4,7 +4,16 @@ import robot from "./images/robot.png";
 export default function Home() {
   return (
     <main className="flex min-h-screen bg-white text-black">
-      <div className="flex flex items-center justify-center">
+      <div className="flex flex-col items-center justify-center">
+      <h1 className="font-extrabold text-2xl max-sm:text-2xl text-center pt-8">
+          Hello! 
+          <br/>
+          My name is WanderAI
+          <br/>
+          and I am your personal 
+          <br/>
+          AI assistant!
+        </h1>
       <img
         src={robot.src}
         alt="large-decorative-image"
@@ -13,7 +22,7 @@ export default function Home() {
       </div>
       <div className="flex-col items-center justify-center w-4/5 min-h-screen bg-slate-300">
         <h1 className="font-extrabold text-3xl max-sm:text-2xl text-center pt-8">
-          Customer Support Chatbot
+          Chat Log
         </h1>
         <ChatBotUI />
       </div>

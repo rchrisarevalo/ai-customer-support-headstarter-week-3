@@ -28,7 +28,7 @@ const ChatBotUI = () => {
     },
     {
       role: "assistant",
-      content: "I will be your helpful customer support chatbot. How can I help you?"
+      content: "Hello! How can I help you?"
     }
   ]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -99,8 +99,8 @@ const ChatBotUI = () => {
   };
 
   return (
-    <div className="flex flex-col item-center bg-slate-300 justify-center text-left max-lg:w-4/5 max-sm:w-full max-sm:ml-2 max-sm:mr-2 p-8 max-sm:p-3">
-      <div className="flex-grow overflow-y-auto p-6">
+    <div className="flex flex-col items-center bg-slate-300 text-left max-lg:w-4/5 max-sm:w-full max-sm:ml-2 max-sm:mr-2 p-8 max-sm:p-3 mx-auto">
+      <div className="flex-grow overflow-y-auto p-6 w-full">
         <MessageDashboard>
           <>
             {responses.map((res, i) => (
@@ -122,11 +122,10 @@ const ChatBotUI = () => {
             )}
           </>
         </MessageDashboard>
-      </div>
-      <div className="w-full p-4 bg-gray-100 fixed bottom-0 right-0">
+        <div className="w-full p-2 mt-5 bg-gray-100 rounded-md">
         <form
           onSubmit={handleChatSubmission}
-          className="flex flex-row max-sm:flex-col items-center justify-center gap-4 text-left rounded-md"
+          className="flex flex-row max-sm:flex-col items-center justify-center text-left rounded-md w-full"
         >
           <textarea
             className="border-transparent outline-transparent bg-white p-4 rounded-md resize-none w-full"
@@ -143,6 +142,8 @@ const ChatBotUI = () => {
             </button>
         </form>
       </div>
+      </div>
+      
     </div>
   );
 };
