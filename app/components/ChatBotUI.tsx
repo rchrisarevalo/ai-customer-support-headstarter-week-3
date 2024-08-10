@@ -130,13 +130,13 @@ const ChatBotUI = () => {
             )}
           </>
         </MessageDashboard>
-        <div className="w-full p-2 mt-5 bg-gray-100 rounded-md">
+        <div className="w-full mt-5 bg-transparent rounded-md">
           <form
             onSubmit={handleChatSubmission}
             className="flex flex-row max-sm:flex-col items-center justify-center text-left rounded-md w-full"
           >
             <textarea
-              className="border-transparent outline-transparent bg-white p-4 rounded-md resize-none w-full"
+              className="border-transparent outline-transparent bg-white mr-4 p-4 rounded-md resize-none w-full"
               onChange={(e) => setChatInput(e.target.value)}
               onKeyDown={handleKeyDown}
               value={chatInput}
