@@ -99,11 +99,8 @@ const ChatBotUI = () => {
   };
 
   return (
-    <div className="flex flex-col item-center bg-slate-200 justify-center gap-5 text-left ml-36 mr-36 max-lg:w-4/5 max-sm:w-full mt-20 mb-20 max-sm:ml-2 max-sm:mr-2 p-32 max-sm:p-12 rounded-2xl">
-      <h1 className="font-extrabold text-3xl max-sm:text-2xl">
-        Customer Support Chatbot
-      </h1>
-      <div className="overflow-hidden h-full">
+    <div className="flex flex-col item-center bg-slate-300 justify-center text-left max-lg:w-4/5 max-sm:w-full max-sm:ml-2 max-sm:mr-2 p-8 max-sm:p-3">
+      <div className="flex-grow overflow-y-auto p-6">
         <MessageDashboard>
           <>
             {responses.map((res, i) => (
@@ -126,26 +123,26 @@ const ChatBotUI = () => {
           </>
         </MessageDashboard>
       </div>
-      <form
-        onSubmit={handleChatSubmission}
-        className="flex flex-row max-sm:flex-col items-center justify-center gap-10 text-left rounded-md"
-      >
-        <textarea
-          className="border-transparent pb-4 bg-white outline-transparent p-4 items-center rounded-md resize-none w-full"
-          onChange={(e) => setChatInput(e.target.value)}
-          value={chatInput}
-          rows={1}
-          required
-        ></textarea>
-        <div className="flex flex-col justify-center items-center">
-          <button
-            type="submit"
-            className="p-8 py-3 rounded-md bg-slate-500 text-white font-extrabold"
-          >
-            Send
-          </button>
-        </div>
-      </form>
+      <div className="w-full p-4 bg-gray-100 fixed bottom-0 right-0">
+        <form
+          onSubmit={handleChatSubmission}
+          className="flex flex-row max-sm:flex-col items-center justify-center gap-4 text-left rounded-md"
+        >
+          <textarea
+            className="border-transparent outline-transparent bg-white p-4 rounded-md resize-none w-full"
+            onChange={(e) => setChatInput(e.target.value)}
+            value={chatInput}
+            rows={1}
+            required
+          />
+            <button
+              type="submit"
+              className="p-4 rounded-md bg-blue-500 text-white font-extrabold"
+            >
+              Send
+            </button>
+        </form>
+      </div>
     </div>
   );
 };
