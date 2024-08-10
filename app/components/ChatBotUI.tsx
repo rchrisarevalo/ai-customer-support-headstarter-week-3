@@ -29,7 +29,7 @@ const ChatBotUI = () => {
     },
     {
       role: "assistant",
-      content: "I will be your helpful customer support chatbot. How can I help you?"
+      content: "Hello! How can I help you?"
     }
   ]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -107,11 +107,8 @@ const ChatBotUI = () => {
   };
 
   return (
-    <div className="flex flex-col item-center bg-slate-200 justify-center gap-5 text-left lg:w-4/5 sm:w-full max-sm:ml-2 max-sm:mr-2 p-16 max-sm:p-12 rounded-2xl">
-      <h1 className="font-mono font-extrabold text-3xl max-sm:text-2xl">
-        WanderAI
-      </h1>
-      <div className="overflow-hidden h-full">
+    <div className="flex flex-col items-center bg-slate-300 text-left max-lg:w-4/5 max-sm:w-full max-sm:ml-2 max-sm:mr-2 p-8 max-sm:p-3 mx-auto">
+      <div className="flex-grow overflow-y-auto p-6 w-full">
         <MessageDashboard>
           <>
             {responses.map((res, i) => (
@@ -133,29 +130,29 @@ const ChatBotUI = () => {
             )}
           </>
         </MessageDashboard>
-      </div>
-      <form
-        onSubmit={handleChatSubmission}
-        className="flex flex-row max-sm:flex-col items-center justify-center gap-10 text-left rounded-md"
-      >
-        <textarea
-          className="border-transparent pb-4 bg-white outline-transparent outline-none p-4 items-center rounded-md resize-none w-full"
-          onChange={(e) => setChatInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          value={chatInput}
-          rows={1}
-          required
-          placeholder="Message Chatbot"
-        ></textarea>
-        <div className="flex flex-col justify-center items-center">
-          <button
+        <div className="w-full mt-5 bg-transparent rounded-md">
+          <form
+            onSubmit={handleChatSubmission}
+            className="flex flex-row max-sm:flex-col items-center justify-center text-left rounded-md w-full"
+          >
+            <textarea
+              className="border-transparent outline-transparent bg-white mr-4 p-4 rounded-md resize-none w-full"
+              onChange={(e) => setChatInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              value={chatInput}
+              rows={1}
+              required
+              placeholder="Message Chatbot"
+            />
+            <button
             type="submit"
             className={`p-6 py-3 text-3xl rounded-md ${chatInput == "" ? "bg-slate-100 hover:cursor-default" : "bg-slate-500 hover:bg-slate-400"} text-white font-extrabold`}
-          >
-            <IoIosSend />
-          </button>
+            >
+              <IoIosSend />
+            </button>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

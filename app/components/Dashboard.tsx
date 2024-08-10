@@ -36,7 +36,7 @@ export const ChatBotMessage: React.FC<ChatBotMessageDisplayProps & { isLoading: 
           <Loading isLoading={isLoading} />
         </div>
       ) : (
-        <div className="p-3 w-fit max-w-3/5 max-sm:w-3/4 bg-slate-300 text-black rounded-md">
+        <div className="p-3 w-fit max-w-3/5 max-sm:w-3/4 bg-slate-100 text-black rounded-md">
           <p className=" max-sm:mr-0">
             {message?.split("\n").map((par, i) => (
               <span key={`par-${i}`} className="flex flex-col gap-4">
@@ -54,7 +54,7 @@ export const UserMessage: React.FC<UserMessageDisplayProps> = ({ message }) => {
   return (
     <div className="flex flex-row justify-end items-end max-sm:items-end gap-5 text-left">
       
-      <div className="p-3 max-w-3/5 w-fit max-sm:w-3/4 bg-blue-500 text-white rounded-md">
+      <div className="p-3 max-w-3/5 w-fit max-sm:w-3/4 bg-slate-500 text-white rounded-md">
         <p className=" max-sm:mr-0">
           {message?.toString().split("\n").map((par, i) => (
             <span key={`par-${i}`} className="flex flex-col gap-4">
@@ -76,7 +76,7 @@ export const UserMessage: React.FC<UserMessageDisplayProps> = ({ message }) => {
 
 export const MessageDashboard: React.FC<DashboardProps> = ({ children }) => {
   return (
-    <div id="chatbot-dashboard" className="flex flex-col min-w-full h-96 overflow-y-scroll p-10 max-sm:p-5 gap-5 max-lg:ml-10 max-lg:mr-10 max-sm:ml-0 max-sm:mr-0 max-sm:py-5 rounded-md max-sm:w-full bg-white text-black">
+    <div id="chatbot-dashboard" className="flex flex-col w-full h-96 overflow-y-auto p-10 max-sm:p-5 gap-5 max-lg:ml-10 max-lg:mr-10 max-sm:ml-0 max-sm:mr-0 max-sm:py-5 rounded-md bg-white text-black">
       {children}
     </div>
   );
