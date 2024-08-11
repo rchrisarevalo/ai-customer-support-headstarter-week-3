@@ -31,7 +31,37 @@ export const ChatBotMessage: React.FC<ChatBotMessageDisplayProps & { isLoading: 
       setFeedback(null);
     else
       setFeedback(type);
-    // Implement further logic like sending feedback to the server here
+    }
+
+    try {
+      // Store the feedback in the database.
+      const res = await fetch("/api/feedback", {
+        method: "POST",
+        body: JSON.stringify({
+          rating:
+            feedback_type == "up"
+              ? "positive"
+              : feedback_type == "down"
+              ? "negative"
+              : null,
+          response: message,
+          identifier: date_identifier,
+          index_loc: index,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      // Print a message if the request was successful.
+      if (res.ok) {
+        const data = await res.json();
+      } else {
+        console.error("Response failed to be retrieved.");
+      }
+    } catch {
+      throw new Error("Feedback failed to be submitted.");
+    }
   };
 
   return (
