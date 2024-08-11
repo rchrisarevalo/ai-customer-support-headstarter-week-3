@@ -79,7 +79,6 @@ export const ChatBotMessage: React.FC<
       // Print a message if the request was successful.
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
       } else {
         console.error("Response failed to be retrieved.");
       }
