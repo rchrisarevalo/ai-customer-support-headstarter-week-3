@@ -80,6 +80,7 @@ export const ChatBotMessage: React.FC<
       if (res.ok) {
         const data = await res.json();
         console.log(data);
+        
       } else {
         console.error("Response failed to be retrieved.");
       }
