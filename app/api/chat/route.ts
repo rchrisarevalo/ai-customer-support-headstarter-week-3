@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Groq from "groq-sdk";
 
-type ChatData = {
-  responses: Groq.Chat.Completions.ChatCompletionMessageParam[]
-};
-
 // Set up Groq API.
 const groq = new Groq({
   apiKey: process.env.API_KEY
