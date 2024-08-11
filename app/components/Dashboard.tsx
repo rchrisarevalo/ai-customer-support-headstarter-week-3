@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState} from "react";
+import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 import Image from "next/image";
 import chatbot_img from "../images/bot-ai-generated-img.jpg";
 import user_img from "../images/user-ai-generated-img.jpg";
@@ -22,6 +23,17 @@ interface DashboardProps {
 }
 
 export const ChatBotMessage: React.FC<ChatBotMessageDisplayProps & { isLoading: boolean }> = ({ message, isLoading }) => {
+
+  const [feedback, setFeedback] = useState<null | 'up' | 'down'>(null);
+
+  const handleFeedback = (type: 'up' | 'down') => {
+    if (feedback == type)
+      setFeedback(null);
+    else
+      setFeedback(type);
+    // Implement further logic like sending feedback to the server here
+  };
+
   return (
     <div className="flex flex-row gap-5 items-center text-left">
       <div className="flex items-center">
@@ -36,7 +48,7 @@ export const ChatBotMessage: React.FC<ChatBotMessageDisplayProps & { isLoading: 
           <Loading isLoading={isLoading} />
         </div>
       ) : (
-        <div className="p-3 w-fit max-w-3/5 max-sm:w-3/4 bg-slate-100 text-black rounded-md">
+        <div className="p-3 w-fit max-w-3/5 max-sm:w-3/4 bg-slate-100 text-black rounded-md relative">
           <p className=" max-sm:mr-0">
             {message?.split("\n").map((par, i) => (
               <span key={`par-${i}`} className="flex flex-col gap-4">
@@ -44,7 +56,23 @@ export const ChatBotMessage: React.FC<ChatBotMessageDisplayProps & { isLoading: 
               </span>
             ))}
           </p>
+
+          <div className="absolute mt-4 flex items-center gap-2">
+            <button
+              onClick={() => handleFeedback('up')}
+              className={`p-1 rounded-full ${feedback === 'up' ? 'bg-teal-600 text-white' : 'text-gray-400'}`}
+            >
+              <FaThumbsUp size={12} />
+            </button>
+            <button
+              onClick={() => handleFeedback('down')}
+              className={`p-1 rounded-full ${feedback === 'down' ? 'bg-red-500 text-white' : 'text-gray-400'}`}
+            >
+              <FaThumbsDown size={12} />
+            </button>
+          </div>
         </div>
+        
       )}
     </div>
   );
