@@ -5,6 +5,11 @@ import { Loading } from "./Loading";
 import Groq from "groq-sdk";
 import { IoIosSend } from "react-icons/io";
 
+type ChatBotRes = {
+  role: string;
+  content: string;
+};
+
 // Function that checks whether
 // the AI prompt is undefined.
 const systemPrompt = () => {
@@ -36,6 +41,7 @@ const ChatBotUI = () => {
   };
 
   useEffect(() => {
+    console.log("Responses changed!")
     scrollToBottom();
   }, [responses, isLoading]); // Scroll when responses change or when loading status changes.
 
@@ -55,6 +61,7 @@ const ChatBotUI = () => {
     setChatInput("");
 
     try {
+      console.log(responses)
       const res = await fetch("/api/chat", {
         method: "POST",
         body: JSON.stringify(responses),
@@ -107,7 +114,7 @@ const ChatBotUI = () => {
             {responses.map((res, i) => (
               <span key={i}>
                 {res.role == "assistant" && (
-                  <ChatBotMessage message={res?.content} isLoading={false} index={i} />
+                  <ChatBotMessage message={res?.content} isLoading={false} />
                 )}
                 {res.role == "user" && (
                   <UserMessage message={res?.content} />
