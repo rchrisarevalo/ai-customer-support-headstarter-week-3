@@ -104,7 +104,7 @@ export const ChatBotMessage: React.FC<
           <Loading isLoading={isLoading} />
         </div>
       ) : (
-        <div className="p-3 w-fit w-3/5 max-w-3/5 max-sm:w-3/4 bg-gradient-to-r from-blue-100 to-green-100 text-black text-[poppins] rounded-lg shadow-lg relative">
+        <div className="p-3 font-[poppins] w-fit w-3/5 max-w-3/5 max-sm:w-3/4 bg-gradient-to-r from-blue-100 to-green-100 text-black text-[poppins] rounded-lg shadow-lg relative">
           <p className=" max-sm:mr-0">
             {message?.split("\n").map((par, i) => (
               <span key={`par-${i}`} className="flex flex-col gap-4">
@@ -140,7 +140,7 @@ export const ChatBotMessage: React.FC<
 export const UserMessage: React.FC<UserMessageDisplayProps> = ({ message }) => {
   return (
     <div className="flex flex-row justify-end items-end max-sm:items-end gap-5 text-left">
-      <div className="p-3 w-3/5 max-w-3/5 w-fit max-sm:w-3/4 bg-gradient-to-r from-purple-700 to-pink-300 text-white rounded-lg shadow-lg mt-4">
+      <div className="p-3 font-[poppins] w-3/5 max-w-3/5 w-fit max-sm:w-3/4 bg-gradient-to-r from-purple-700 to-pink-300 text-white rounded-lg shadow-lg mt-4">
         <p className=" max-sm:mr-0">
           {message
             ?.toString()

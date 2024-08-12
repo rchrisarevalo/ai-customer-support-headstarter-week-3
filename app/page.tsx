@@ -73,7 +73,7 @@ export default function Home() {
       />
       <button
               onClick={handleSignOut}
-              className="mt-4 font-[poppins] p-2 bg-red-700 text-white rounded"
+              className="mt-4 font-[poppins] p-2 bg-red-700 text-white rounded-lg shadow-lg"
             >
               Sign Out
             </button>
