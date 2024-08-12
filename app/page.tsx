@@ -54,7 +54,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen bg-white">
-      {!user ? (
+      {user ? (
         <>
       <div className="flex flex-col items-center justify-center">
       <h1 className="font-[poppins] font-blue-700 font-extrabold text-2xl max-sm:text-2xl text-center pt-8">
