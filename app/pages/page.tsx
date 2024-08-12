@@ -1,5 +1,5 @@
-import ChatBotUI from "./components/ChatBotUI";
-import robot from "./images/robot.png";
+import ChatBotUI from "../components/ChatBotUI";
+import robot from "../images/robot.png";
 
 export default function Home() {
   return (
