@@ -27,6 +27,7 @@ export default function Home() {
       await signInWithEmailAndPassword(auth, email, password);
       setEmail('');
       setPassword('');
+      setError(null)
     } catch (err) {
       setError((err as Error).message);
     }
@@ -100,7 +101,7 @@ export default function Home() {
           alt="A friendly robot AI assistant"
           className="object-cover pr-20"
         />
-        <div className="flex flex-col items-center bg-gradient-to-b from-blue-100 to-green-100 rounded-lg shadow-lg p-2 w-full max-w-md">
+        <div className={`flex flex-row items-center ${error == null ? "bg-gradient-to-b from-blue-100 to-green-100 p-2" : "bg-gradient-to-b from-red-600 to-pink-300 p-1"} rounded-lg shadow-lg w-full max-w-md`}>
           <div className="p-8 bg-white rounded-lg shadow-lg">
           <h1 className="font-[poppins] font-bold text-5xl text-blue-900 sm:text-5xl text-center mb-6">
             {isSignUp ? 'Sign-Up' : 'Sign In'}
@@ -133,12 +134,15 @@ export default function Home() {
             </button>
           </form>
           <button
-            onClick={() => setIsSignUp(!isSignUp)}
+            onClick={() => {
+              setIsSignUp(!isSignUp)
+              setError(null)
+            }}
             className="mt-4 font-[poppins] text-blue-500"
           >
             {isSignUp ? 'Already have an account? Sign-In' : 'Don\'t have an account? Sign Up'}
           </button>
-          {error && <p className="text-red-500 font-[poppins] mt-2">{error}</p>}
+          {error && <p className="text-red-500 font-[poppins] mt-1 text-sm">{error}</p>}
           </div>
         </div>
       </div>
