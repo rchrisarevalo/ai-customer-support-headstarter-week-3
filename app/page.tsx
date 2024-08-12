@@ -5,6 +5,7 @@ import robot from "./images/robot.png";
 import { auth } from '@/firebase';
 import { signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, onAuthStateChanged, User } from "firebase/auth";
 import { useEffect, useState, FormEvent } from "react";
+import '@fontsource/poppins'
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
@@ -53,10 +54,10 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen bg-white text-black">
-      {user ? (
+      {!user ? (
         <>
       <div className="flex flex-col items-center justify-center">
-      <h1 className="font-[poppins] font-extrabold text-2xl max-sm:text-2xl text-center pt-8">
+      <h1 className="font-[poppins] font-blue-900 font-extrabold text-2xl max-sm:text-2xl text-center pt-8">
           Hello! 
           <br/>
           My name is WanderAI
@@ -71,14 +72,14 @@ export default function Home() {
         className="w-full h-auto object-cover p-2"
       />
       </div>
-      <div className="flex flex-col items-center justify-center w-4/5 min-h-screen p-8 bg-slate-300">
+      <div className="flex-col items-center justify-center w-4/5 min-h-screen bg-slate-300">
         <h1 className="font-[poppins] font-bold text-3xl max-sm:text-2xl text-center pt-8">
           Ask me anything...
         </h1>
         <ChatBotUI />
         <button
               onClick={handleSignOut}
-              className="mt-4 font-[poppins] p-2 bg-red-500 text-white rounded"
+              className="mt-4 font-[poppins] p-2 bg-red-700 text-white rounded"
             >
               Sign Out
             </button>
