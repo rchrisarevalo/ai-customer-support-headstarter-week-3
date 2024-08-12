@@ -5,6 +5,7 @@ import chatbot_img from "../images/bot-ai-generated-img.jpg";
 import user_img from "../images/user-ai-generated-img.jpg";
 import { Loading } from "./Loading";
 import Groq from "groq-sdk";
+import '@fontsource/poppins'
 
 interface ChatBotMessageDisplayProps {
   message: string | null | undefined;
@@ -95,7 +96,7 @@ export const ChatBotMessage: React.FC<
         <Image
           src={chatbot_img}
           alt="chatbot-ai-generated"
-          className="w-12 h-12 rounded-full pointer-events-none"
+          className="w-12 h-12 rounded-full pointer-events-none shadow-lg"
         />
       </div>
       {isLoading ? (
@@ -103,7 +104,7 @@ export const ChatBotMessage: React.FC<
           <Loading isLoading={isLoading} />
         </div>
       ) : (
-        <div className="p-3 w-fit max-w-3/5 max-sm:w-3/4 bg-slate-100 text-black rounded-md relative">
+        <div className="p-3 font-[poppins] w-fit w-3/5 max-w-3/5 max-sm:w-3/4 bg-gradient-to-r from-blue-100 to-green-100 text-black text-[poppins] rounded-lg shadow-lg relative">
           <p className=" max-sm:mr-0">
             {message?.split("\n").map((par, i) => (
               <span key={`par-${i}`} className="flex flex-col gap-4">
@@ -112,11 +113,11 @@ export const ChatBotMessage: React.FC<
             ))}
           </p>
 
-          <div className="absolute mt-4 flex items-center gap-2">
+          <div className="absolute mt-4 flex items-center gap-2 ">
             <button
               onClick={() => handleFeedback("up")}
               className={`p-1 rounded-full ${
-                feedback === "up" ? "bg-teal-600 text-white" : "text-gray-400"
+                feedback === "up" ? "bg-teal-600 text-white shadow-lg" : "text-gray-600"
               }`}
             >
               <FaThumbsUp size={12} />
@@ -124,7 +125,7 @@ export const ChatBotMessage: React.FC<
             <button
               onClick={() => handleFeedback("down")}
               className={`p-1 rounded-full ${
-                feedback === "down" ? "bg-red-500 text-white" : "text-gray-400"
+                feedback === "down" ? "bg-red-700 text-white shadow-lg" : "text-gray-600"
               }`}
             >
               <FaThumbsDown size={12} />
@@ -139,7 +140,7 @@ export const ChatBotMessage: React.FC<
 export const UserMessage: React.FC<UserMessageDisplayProps> = ({ message }) => {
   return (
     <div className="flex flex-row justify-end items-end max-sm:items-end gap-5 text-left">
-      <div className="p-3 max-w-3/5 w-fit max-sm:w-3/4 bg-slate-500 text-white rounded-md">
+      <div className="p-3 font-[poppins] w-3/5 max-w-3/5 w-fit max-sm:w-3/4 bg-gradient-to-r from-purple-700 to-pink-300 text-white rounded-lg shadow-lg mt-4">
         <p className=" max-sm:mr-0">
           {message
             ?.toString()
@@ -155,7 +156,7 @@ export const UserMessage: React.FC<UserMessageDisplayProps> = ({ message }) => {
         <Image
           src={user_img}
           alt="user-ai-generated"
-          className="w-12 h-12 rounded-full pointer-events-none"
+          className="w-12 h-12 rounded-full pointer-events-none shadow-lg"
         />
       </div>
     </div>
