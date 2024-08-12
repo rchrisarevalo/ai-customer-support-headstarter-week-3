@@ -100,8 +100,8 @@ const ChatBotUI = () => {
   };
 
   return (
-    <div className="flex flex-col items-center bg-slate-300 text-left max-lg:w-4/5 max-sm:w-full max-sm:ml-2 max-sm:mr-2 p-8 max-sm:p-3 mx-auto">
-      <div className="flex-grow overflow-y-auto p-6 w-full">
+    <div className="flex flex-col items-center bg-white text-left max-lg:w-4/5 max-sm:w-full max-sm:ml-2 max-sm:mr-2 p-8 max-sm:p-3 mx-auto">
+      <div className="flex-grow overflow-y-auto p-8 ml-10 mr-10 w-full shadow-lg rounded-lg">
         <MessageDashboard>
           <>
             {responses.map((res, i) => (
@@ -123,13 +123,13 @@ const ChatBotUI = () => {
             )}
           </>
         </MessageDashboard>
-        <div className="w-full mt-5 bg-transparent rounded-md">
+        <div className="w-full mt-5 bg-transparent rounded-lg">
           <form
             onSubmit={handleChatSubmission}
-            className="flex flex-row max-sm:flex-col items-center justify-center text-left rounded-md w-full"
+            className="flex flex-row max-sm:flex-col items-center justify-center text-left rounded-lg w-full bg-white"
           >
             <textarea
-              className="border-transparent outline-transparent bg-white mr-4 p-4 rounded-md resize-none w-full"
+              className="border-transparent outline-transparent bg-white mr-4 p-4 rounded-lg resize-none w-full text-black shadow-lg"
               onChange={(e) => setChatInput(e.target.value)}
               onKeyDown={handleKeyDown}
               value={chatInput}
@@ -139,7 +139,7 @@ const ChatBotUI = () => {
             />
             <button
             type="submit"
-            className={`p-6 py-3 text-3xl rounded-md ${chatInput == "" ? "bg-slate-100 hover:cursor-default" : "bg-slate-500 hover:bg-slate-400"} text-white font-extrabold`}
+            className={`p-6 py-3 text-3xl rounded-md ${chatInput == "" ? "bg-slate-100 hover:cursor-default" : "bg-slate-500 hover:bg-slate-400"} text-white font-extrabold shadow-md`}
             >
               <IoIosSend />
             </button>
